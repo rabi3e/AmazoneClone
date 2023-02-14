@@ -1,6 +1,8 @@
 from django.db import models
 from taggit.managers import TaggableManager
 from django.utils import timezone
+from django.utils.text import slugify
+
 from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
 
@@ -11,7 +13,7 @@ FLAGS_TYPES = (
     )
 
 class Product(models.Model):
-    name = models.CharField(_('name'),max_length=120)
+    name = models.CharField(_('Title'),max_length=120)
     image = models.ImageField(_('image'),upload_to='products')
     price = models.FloatField(_('price'))
     sku = models.IntegerField(_('sku'))
@@ -24,6 +26,10 @@ class Product(models.Model):
     
     def __str__(self):
         return str(self.name)
+    
+    def save(self, *args, **kwargs):
+       self.slug = slugify(self.name)
+       super(Product, self).save(*args, **kwargs) # Call the real save() method
 
 class Brand(models.Model):
     name = models.CharField(_('name'),max_length=100)
