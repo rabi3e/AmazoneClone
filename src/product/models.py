@@ -2,22 +2,23 @@ from django.db import models
 from taggit.managers import TaggableManager
 from django.utils import timezone
 from django.contrib.auth.models import User
+from django.utils.translation import gettext as _
 
 FLAGS_TYPES = (
-    ('N', 'New')
-    ('F', 'Feature')
+    ('N', 'New'),
+    ('F', 'Feature'),
     ('S', 'Sale')
     )
 
 class Product(models.Model):
-    name = models.CharField(max_length=120)
-    image = models.ImageField(upload_to='products')
-    price = models.FloatField()
-    sku = models.IntegerField()
-    subtitle = models.CharField(max_length=300)
-    description = models.TextField(max_length=20000)
-    flag = models.CharField(max_length=1, choices=FLAGS_TYPES)
-    brand = models.ForeignKey('Brand',related_name='product_brand', on_delete=models.SET_NULL, null=True,blank=True)
+    name = models.CharField(_('name'),max_length=120)
+    image = models.ImageField(_('image'),upload_to='products')
+    price = models.FloatField(_('price'))
+    sku = models.IntegerField(_('sku'))
+    subtitle = models.CharField(_('subtitle'),max_length=300)
+    description = models.TextField(_('description'),max_length=20000)
+    flag = models.CharField(_('flag'),max_length=1, choices=FLAGS_TYPES)
+    brand = models.ForeignKey('Brand',verbose_name=_('Brand'),related_name='product_brand', on_delete=models.SET_NULL, null=True,blank=True)
     tag = TaggableManager()
     slug = models.SlugField(null=True,blank=True)
     
@@ -25,8 +26,8 @@ class Product(models.Model):
         return str(self.name)
 
 class Brand(models.Model):
-    name = models.CharField(max_length=100)
-    image = models.ImageField(upload_to='brand')
+    name = models.CharField(_('name'),max_length=100)
+    image = models.ImageField(_('image'),upload_to='brand')
     slug = models.SlugField(null=True, blank=True)
     
     def __str__(self):
@@ -41,10 +42,10 @@ class ProductImages(models.Model):
         return str(self.product)    
     
 class ProductReview(models.Model):
-    user=models.ForeignKey(User,related_name='review_author', on_delete=models.SET_NULL,null=True,blank=True)
-    product=models.ForeignKey(Product,related_name='product_review' , on_delete=models.CASCADE)
-    rate = models.IntegerField()
-    review = models.TextField(max_length=1000)
+    user=models.ForeignKey(User,verbose_name=_('user'),related_name='review_author', on_delete=models.SET_NULL,null=True,blank=True)
+    product=models.ForeignKey(Product,verbose_name=_('product'),related_name='product_review' , on_delete=models.CASCADE)
+    rate = models.IntegerField(_('rate'))
+    review = models.TextField(_('review'),max_length=1000)
     date = models.DateTimeField(default=timezone.now)
     
     def __str__(self):
