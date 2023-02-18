@@ -63,7 +63,7 @@
                                 <i class="active icofont-star"></i>
                                 <i class="active icofont-star"></i>
                                 <i class="icofont-star"></i>
-                                <a href="#">(3 reviews)</a>
+                                <a href="#">({{object.nbr_reviewe}} reviews)</a>
                             </div>
                             <h3 class="details-price">
                                 <span>${{object.price}}<small></small></span>
@@ -146,9 +146,9 @@
                             </table>
                         </div>
                         <div class="product-details-frame">
-                            <h3 class="frame-title">Reviews (2)</h3>
+                            <h3 class="frame-title">Reviews ({{object.nbr_reviewe}})</h3>
                             <ul class="review-list">
-                                {% for item in object.product_review.all  %}
+                                {% for item in object.productreview.all  %}
                                     <li class="review-item">
                                         <div class="review-media">
                                             <a class="review-avatar" href="#">

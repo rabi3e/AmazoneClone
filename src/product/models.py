@@ -23,7 +23,12 @@ class Product(models.Model):
     brand = models.ForeignKey('Brand',verbose_name=_('Brand'),related_name='product_brand', on_delete=models.SET_NULL, null=True,blank=True)
     tag = TaggableManager()
     slug = models.SlugField(null=True,blank=True)
+    nbr_reviewe = models.IntegerField(_("Reviews"))
     
+        
+        
+        
+        
     class Meta :
         verbose_name = "Product"
         verbose_name_plural = "Products"
@@ -35,6 +40,10 @@ class Product(models.Model):
     def save(self, *args, **kwargs):
        self.slug = slugify(self.name)
        super(Product, self).save(*args, **kwargs) # Call the real save() method
+       
+    def getreviews(self):
+        reviews = self.productreview_set.all()
+        nbr_reviewe = len(reviews)
 
 class Brand(models.Model):
     name = models.CharField(_('name'),max_length=100)
@@ -54,7 +63,7 @@ class ProductImages(models.Model):
     
 class ProductReview(models.Model):
     user=models.ForeignKey(User,verbose_name=_('user'),related_name='review_author', on_delete=models.SET_NULL,null=True,blank=True)
-    product=models.ForeignKey(Product,verbose_name=_('product'),related_name='product_review' , on_delete=models.CASCADE)
+    product=models.ForeignKey(Product,verbose_name=_('product'),related_name='productreview' , on_delete=models.CASCADE)
     rate = models.IntegerField(_('rate'))
     review = models.TextField(_('review'),max_length=1000)
     date = models.DateTimeField(default=timezone.now)
