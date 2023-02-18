@@ -24,6 +24,11 @@ class Product(models.Model):
     tag = TaggableManager()
     slug = models.SlugField(null=True,blank=True)
     
+    class Meta :
+        verbose_name = "Product"
+        verbose_name_plural = "Products"
+        
+           
     def __str__(self):
         return str(self.name)
     

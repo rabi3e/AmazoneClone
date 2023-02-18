@@ -1,17 +1,16 @@
 
 {% extends "base.html" %}
+{%load static%}
 {% block body %}
- 
-
-<!--=====================================
+        <!--=====================================
                     BANNER PART START
         =======================================-->
         <section class="inner-section single-banner" style="background: url(images/single-banner.jpg) no-repeat center;">
             <div class="container">
-                <h2>Shop 4 Column</h2>
+                <h2>Shop</h2>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">shop-4column</li>
+                    <li class="breadcrumb-item active" aria-current="page">shop</li>
                 </ol>
             </div>
         </section>
@@ -27,8 +26,8 @@
             <div class="container">
                 <div class="row content-reverse">
                     <div class="col-lg-3">
-                        <div class="shop-widget-promo">
-                            <a href="#"><img src="images/promo/shop/01.jpg" alt="promo"></a>
+                        <div class="shop-widget-promo " >
+                            <a href="#"><img src="{% static 'en/images/promo/shop/01.jpg' %}" alt="promo"></a>
                         </div>
                         <div class="shop-widget">
                             <h6 class="shop-widget-title">Filter by Price</h6>
@@ -361,8 +360,6 @@
                         </div>
                         <div class="row row-cols-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-4">
                         {% for object in object_list %}
-                             
-                           
                             <div class="col">
                                 <div class="product-card">
                                     <div class="product-media">
@@ -373,7 +370,6 @@
                                             <img src="{{object.image.url}}" alt="product">
                                         </a>
                                         <div class="product-widget">
-                                            <a title="Product Compare" href="compare.html" class="fas fa-random"></a>
                                             <a title="Product Video" href="https://youtu.be/9xzcVxSBbG8" class="venobox fas fa-play" data-autoplay="true" data-vbtype="video"></a>
                                             <a title="Product View" href="#" class="fas fa-eye" data-bs-toggle="modal" data-bs-target="#product-view"></a>
                                         </div>
